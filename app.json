@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "My Messenger",
+    "slug": "messenger-app",
+    "version": "1.0.0",
+    "sdkVersion": "50.0.0",
+    "android": {
+      "package": "com.yourname.messenger"
+    }
+  }
+}
