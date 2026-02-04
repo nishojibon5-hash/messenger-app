@@ -1,4 +1,4 @@
-name: Build Messenger APK
+name: Final Build APK
 on:
   push:
     branches:
@@ -8,30 +8,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 🏗 Checkout repository
+      - name: 🏗 Checkout
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup Node.js
+      - name: ⚙️ Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
 
-      - name: 📦 Install dependencies
+      - name: 📦 Install
         run: npm install
 
-      - name: 🛠️ Setup EAS Project ID (Bypass Error)
-        run: npx eas-cli project:init --non-interactive
+      - name: 🚀 Build APK (No Questions)
+        run: |
+          npx eas-cli project:init --non-interactive
+          npx eas-cli build --platform android --profile preview --local --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
-      - name: 🚀 Build APK with EAS (Bypass Prompt)
-        run: npx eas-cli build --platform android --profile preview --local --non-interactive
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: 📥 Upload APK Artifact
+      - name: 📥 Get APK
         uses: actions/upload-artifact@v4
         with:
-          name: messenger-app-apk
+          name: my-messenger-apk
           path: ./*.apk 
