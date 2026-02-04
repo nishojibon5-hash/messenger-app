@@ -2,17 +2,17 @@ name: Build Messenger APK
 on:
   push:
     branches:
-      - main  # আপনার মেইন ব্রাঞ্চের নাম যদি 'master' হয় তবে এখানে master লিখে দিন
+      - main 
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # আপডেট করা হয়েছে v4 এ
 
       - name: ⚙️ Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4 # আপডেট করা হয়েছে v4 এ
         with:
           node-version: 18
           cache: 'npm'
@@ -23,10 +23,10 @@ jobs:
       - name: 🚀 Build APK with EAS
         run: npx eas-cli build --platform android --profile preview --local
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} # এটি আপনার দেওয়া টোকেনটি ব্যবহার করবে
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }} 
 
       - name: 📥 Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # এটিই মূল সমাধান, v4 ব্যবহার করতে হবে
         with:
           name: messenger-app-apk
-          path: ./*.apk # বিল্ড হওয়ার পর যে APK ফাইলটি তৈরি হবে সেটি সেভ করবে
+          path: ./*.apk 
